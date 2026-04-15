@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Сошников Алексей Александрович | Эксперт по недвижимости</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #fefcf8; color: #1e2a2f; line-height: 1.5; scroll-behavior: smooth; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .navbar { padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.05); background-color: #fefcf8; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(2px); }
+    .nav-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .logo { font-weight: 700; font-size: 1.5rem; background: linear-gradient(135deg, #2b6e4f, #1f4e38); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 28px; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; color: #2c4238; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #2b6e4f; }
+    .btn { display: inline-block; background-color: #2b6e4f; color: white; padding: 12px 28px; border-radius: 40px; text-decoration: none; font-weight: 600; transition: all 0.25s ease; border: none; cursor: pointer; font-size: 0.95rem; text-align: center; }
+    .btn-outline { background: transparent; border: 1.5px solid #2b6e4f; color: #2b6e4f; }
+    .btn-outline:hover { background: #2b6e4f; color: white; }
+    .btn:hover { background-color: #1f4e38; transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.05); }
+    .hero { padding: 60px 0 40px; background-image: url('12.jpg'); background-size: cover; background-position: center 30%; position: relative; border-radius: 0 0 32px 32px; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.65); border-radius: 0 0 32px 32px; z-index: 1; }
+    .hero .container { position: relative; z-index: 2; }
+    .hero-content h1, .hero-content p { color: white !important; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+    .badge { background: #ffb347 !important; color: #1e2a2f !important; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .hero-avatar { background: rgba(255, 255, 255, 0.95); border-radius: 60px; padding: 12px 16px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); text-align: center; min-width: 180px; flex: 0 0 auto; }
+    .hero-grid { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; justify-content: space-between; }
+    .hero-content { flex: 1; min-width: 260px; }
+    .hero-content h1 { font-size: 2.6rem; font-weight: 700; line-height: 1.2; margin-bottom: 20px; }
+    .hero-content p { font-size: 1.1rem; margin-bottom: 32px; max-width: 500px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 16px; }
+    .avatar-img { width: 140px; height: 140px; object-fit: cover; border-radius: 50%; margin-bottom: 12px; background: #d4e2da; display: inline-block; }
+    section { padding: 70px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 40px; color: #1f3a30; position: relative; display: inline-block; }
+    .section-title:after { content: ''; position: absolute; bottom: -12px; left: 0; width: 60px; height: 3px; background: #2b6e4f; border-radius: 3px; }
+    .stats-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 28px; margin: 30px 0; }
+    .stat-card { background: white; padding: 28px 20px; border-radius: 28px; text-align: center; flex: 1; min-width: 150px; border: 1px solid #e2eae6; transition: transform 0.2s; }
+    .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .stat-number { font-size: 2.6rem; font-weight: 800; color: #2b6e4f; }
+    .tabs { display: flex; gap: 16px; margin-bottom: 32px; border-bottom: 1px solid #e2eae6; padding-bottom: 12px; }
+    .tab-btn { background: none; border: none; font-size: 1.1rem; font-weight: 600; cursor: pointer; padding: 8px 20px; border-radius: 40px; transition: 0.2s; color: #4a5b54; }
+    .tab-btn.active { background: #2b6e4f; color: white; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .portfolio-grid { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 20px; }
+    .portfolio-card { flex: 1 1 280px; background: white; border-radius: 28px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; }
+    .portfolio-card:hover { transform: translateY(-5px); }
+    .portfolio-card img { width: 100%; height: 200px; object-fit: cover; }
+    .portfolio-card h4 { padding: 16px 16px 8px; }
+    .portfolio-card p { padding: 0 16px 16px; color: #5c7067; max-height: 80px; overflow: hidden; transition: max-height 0.3s ease; }
+    .portfolio-card p.expanded { max-height: 500px; }
+    /* Новые размеры для дипломов: шире на 15%, короче на 50% */
+    .diplomas-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 40px; }
+    .diploma-card { 
+      flex: 1 1 180px; /* было 140px, стало ~на 15% шире (140*1.15=161, округлил до 160, но с гибкостью 180) */
+      max-width: 190px; 
+      background: white; 
+      border-radius: 20px; 
+      overflow: hidden; 
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+      text-align: center; 
+      padding-bottom: 8px;
+    }
+    .diploma-card img { 
+      width: 100%; 
+      height: auto; 
+      display: block; 
+      aspect-ratio: 3 / 2; /* чуть более приплюснутое соотношение, чтобы высота была меньше */
+      object-fit: cover;
+    }
+    .diploma-card p { font-size: 0.75rem; padding: 8px 4px 4px; color: #4a5b54; font-weight: 500; }
+    .reviews-stars-area { margin-top: 40px; border-top: 2px solid #e2eae6; padding-top: 30px; }
+    .average-rating { font-size: 1.4rem; font-weight: bold; margin-bottom: 20px; background: white; display: inline-block; padding: 8px 20px; border-radius: 40px; }
+    .reviews-list { max-height: 400px; overflow-y: auto; margin-bottom: 30px; padding-right: 10px; }
+    .review-item { background: white; border-radius: 24px; padding: 16px; margin-bottom: 16px; }
+    .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; }
+    .review-name { font-weight: 700; }
+    .review-stars { color: #f5b342; letter-spacing: 2px; }
+    .review-text { color: #2c4238; margin-top: 6px; }
+    .add-review-form { background: white; border-radius: 32px; padding: 24px; margin-top: 20px; }
+    .star-rating { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 8px; margin: 15px 0; }
+    .star-rating input { display: none; }
+    .star-rating label { font-size: 28px; color: #ccc; cursor: pointer; }
+    .star-rating input:checked ~ label, .star-rating label:hover, .star-rating label:hover ~ label { color: #f5b342; }
+    .two-columns { display: flex; flex-wrap: wrap; gap: 40px; align-items: start; }
+    .calc-box { flex: 1; min-width: 280px; background: #f5f9f6; padding: 32px; border-radius: 32px; }
+    .calc-box label { display: block; font-weight: 500; margin-bottom: 6px; margin-top: 12px; color: #1f3a30; }
+    .calc-box input { width: 100%; margin-bottom: 8px; padding: 12px; border-radius: 28px; border: 1px solid #cbdcd3; }
+    .calc-result { font-weight: bold; margin-top: 20px; font-size: 1.2rem; background: white; padding: 12px; border-radius: 28px; text-align: center; }
+    .legal-check { flex: 1; min-width: 280px; background: #f5f9f6; padding: 32px; border-radius: 32px; }
+    .legal-check h3 { margin-bottom: 20px; font-size: 1.6rem; }
+    .legal-group { margin-bottom: 20px; }
+    .legal-group .dropdown-btn { width: 100%; text-align: left; background: white; border: 1px solid #cbdcd3; border-radius: 40px; padding: 12px 16px; cursor: pointer; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
+    .legal-group .dropdown-btn i { transition: transform 0.2s; }
+    .legal-group .dropdown-content { display: none; background: white; border-radius: 20px; margin-top: 8px; padding: 12px; border: 1px solid #e2eae6; max-height: 200px; overflow-y: auto; }
+    .legal-group .dropdown-content label { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: normal; cursor: pointer; }
+    .risk-result { margin-top: 20px; padding: 12px; border-radius: 28px; text-align: center; font-weight: bold; display: none; }
+    .risk-low { background-color: #d4edda; color: #155724; }
+    .risk-medium { background-color: #fff3cd; color: #856404; }
+    .risk-high { background-color: #f8d7da; color: #721c24; }
+    .legal-form { margin-top: 20px; padding-top: 15px; border-top: 1px solid #cbdcd3; display: none; }
+    .legal-form input { width: 100%; padding: 10px; border-radius: 28px; border: 1px solid #ccc; margin-bottom: 12px; }
+    .contacts-flex { display: flex; flex-wrap: wrap; gap: 48px; justify-content: space-between; }
+    .contact-info { flex: 1; }
+    .contact-detail { display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+    .contact-detail i.fa-phone-alt { color: #2563eb; }
+    .contact-detail i.fa-envelope { color: #ea4335; }
+    .contact-detail i.fa-vk { color: #0077ff; }
+    .contact-detail i.fa-link { color: #f97316; }
+    .contact-detail a, .contact-detail span { font-size: 1.1rem; text-decoration: none; color: #1e2a2f; font-weight: 500; }
+    .contact-detail a:hover { color: #2b6e4f; }
+    .social-links { display: flex; gap: 20px; margin-top: 24px; }
+    .social-icon { background: #eef3f0; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 60px; color: #2b6e4f; font-size: 1.8rem; transition: 0.2s; }
+    .social-icon:hover { background: #2b6e4f; color: white; transform: scale(1.05); }
+    footer { text-align: center; padding: 32px 0; color: #6f857b; font-size: 0.85rem; background-color: #fff5eb; }
+    #portfolio, #calculator, #contacts { background-color: #fff5eb; border-bottom: none; }
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2rem; }
+      .nav-flex { flex-direction: column; }
+      .hero-grid { flex-direction: column-reverse; }
+      .hero-avatar { min-width: 160px; }
+      .avatar-img { width: 120px; height: 120px; }
+      .two-columns { flex-direction: column; }
+      .diplomas-grid { gap: 12px; }
+      .diploma-card { flex: 1 1 140px; max-width: 150px; } /* на мобильных чуть меньше, но пропорционально */
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-flex">
+    <div class="logo">Сошников А.А. | Недвижимость</div>
+    <div class="nav-links">
+      <a href="#about">Обо мне</a>
+      <a href="#portfolio">Портфолио</a>
+      <a href="#calculator">Ипотека</a>
+      <a href="#contacts">Контакты</a>
+    </div>
+    <button class="btn" id="openModalBtn">Связаться</button>
+  </div>
+</nav>
+
+<main>
+  <div class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="badge"><i class="fas fa-star"></i> 6 лет в недвижимости · 100+ сделок</div>
+        <h1>Сошников Алексей Александрович<br>Эксперт по недвижимости</h1>
+        <p>Помогаю продавать и покупать недвижимость осознанно, с заботой о людях и выгодой. Более 18 лет в продажах, идеолог концепции «эмпатийных продаж».</p>
+        <div class="hero-buttons">
+          <button class="btn" id="heroModalBtn"><i class="fas fa-phone-alt"></i> Заказать звонок</button>
+          <a href="mailto:a.soshnikov.slon@gmail.com" class="btn"><i class="fas fa-envelope"></i> Написать</a>
+        </div>
+      </div>
+      <div class="hero-avatar">
+        <img class="avatar-img" src="123.png" alt="Сошников Алексей Александрович">
+        <p><strong>Сошников А.А.</strong><br>Риелтор + юрист</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">Обо мне</h2>
+      <div class="about-grid" style="display: flex; gap: 40px; flex-wrap: wrap;">
+        <div style="flex: 1.5;">
+          <p><strong>6 лет на рынке недвижимости</strong> — более 100 успешных сделок. До этого <strong>18 лет в продажах</strong>, что дало глубокое понимание переговоров и психологии клиентов.</p>
+          <p>Неоднократный победитель профессиональных конкурсов, идеолог концепции <strong>«эмпатийных продаж»</strong>. Два высших образования: инженерное и юридическое — гарантия технической и юридической чистоты сделок.</p>
+        </div>
+        <div style="flex:1; background: #f5f9f6; padding: 28px; border-radius: 32px;">
+          <h3><i class="fas fa-gem"></i> Принципы</h3>
+          <p>✔ Эмпатийные продажи<br>✔ Юридическая безупречность<br>✔ Индивидуальный подход</p>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-number">6 лет</div><div>в недвижимости</div></div>
+        <div class="stat-card"><div class="stat-number">100+</div><div>сделок</div></div>
+        <div class="stat-card"><div class="stat-number">18 лет</div><div>в продажах</div></div>
+        <div class="stat-card"><div class="stat-number">2</div><div>высших образования</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="container">
+      <h2 class="section-title">Портфолио и отзывы</h2>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="portfolioTab">🏠 Портфолио сделок</button>
+        <button class="tab-btn" data-tab="reviewsTab">⭐ Отзывы клиентов</button>
+      </div>
+      <div id="portfolioTab" class="tab-content active">
+        <div class="portfolio-grid">
+          <div class="portfolio-card"><img src="1.png" alt="Сделка"><h4>Межрегиональная сделка</h4><p>Покупка и продажа квартиры по телефону! Всего 3 дня прошло с момента входящего звонка, онлайн подборки, проверки документов, сбора справок и прямого выхода на сделку! Квартира покупалась под инвестицию, которая впоследствии была сдана в аренду в течение недели. Спасибо Вам за доверие!</p></div>
+          <div class="portfolio-card"><img src="2.png" alt="Сделка"><h4>Сложная сделка с долями</h4><p>Купля-продажа Сталинки под ремонт. С последующей консультацией по демонтажу и ремонту, а также осуществлению организации подряда на ремонт. Сделка проходила при отсутствии основного документа удостоверяющего личность, по временному удостоверению личности, также была оформлена нотариальная доверенность от второго собственника и наличием прописки у третьего. Условие покупателя были осуществить сделку за 5-7 дней. Все справки собраны, объект и лица проверены, сделка закончилась в теплой товарищеской атмосфере!</p></div>
+          <div class="portfolio-card"><img src="3.png" alt="Сделка"><h4>Купили долю дома на 400 тыс ниже рынка</h4><p>Тот случай, когда в тебе говорит прежде всего человек, а не специалист. Риелтор — это не всегда про деньги. За каждой сделкой, за каждым запросом, всегда следует человеческая история, иногда чья-то судьба. Это была длинная и непростая история, с невероятными подводными камнями, которые мы раз за разом поднимали, перемалывали и двигались дальше. И сегодня я с легкостью могу сказать, что мы завершили ее успехом! Спасибо, Светлана, что уже много лет доверяете мне и моей работе.</p></div>
+          <div class="portfolio-card"><img src="4.png" alt="Сделка"><h4>Трешка в ипотеку с обременением</h4><p>Это история была, как квест для упорства. Продавец имел обременение банка, аресты пристава, низкий рейтинг по кредитной истории, а также недоделанный ремонт в квартире. После 5 отказов банка покупателя взять объект в залог, когда другие риелторы бросили и предлагали отпустить историю, был найден способ с двойным кредитованием, для оформления квартиры в собственность, снятия ареста и подписания соглашения об окончательном ремонте к моменту подписания основного договора. Итог: вот уже 2 года мы дружим с покупателями и продавцами. Спасибо, что поверили в меня!</p></div>
+          <div class="portfolio-card"><img src="5.png"><h4>Хрущевка → стильная новостройка</h4><p>Продажа с последующей инвестицией в покупку квартиры и приростом стоимости в 120%. Как быстро продать старое жильё и выгодно купить 2 квартиры, расскажут счастливые покупатели.</p></div>
+          <div class="portfolio-card"><img src="6.png"><h4>Продажа за 3 дня</h4><p>Классика, наличка, чистая квартира и участники, да вот незадача: в день сделки один собственник сдал паспорт и свидетельство о регистрации брака на замену. 4 часа переговоров с нашими самыми понимающими органами и вечером запрыгнули по живой очереди на регистрацию в МФЦ.</p></div>
+        </div>
+      </div>
+      <div id="reviewsTab" class="tab-content">
+        <div class="diplomas-grid">
+          <div class="diploma-card"><img src="от2.png" alt="Диплом"><p></p>Диплом</div>
+          <div class="diploma-card"><img src="от1.png" alt="Сертификат"><p>Сертификат</p></div>
+          <div class="diploma-card"><img src="9.png" alt="Благодарность"><p>Благодарность</p></div>
+          <div class="diploma-card"><img src="33.png" alt="Грамота"><p>Грамота</p></div>
+          <div class="diploma-card"><img src="999.png" alt="Премия"><p>Премия</p></div>
+        </div>
+        <div class="reviews-stars-area">
+          <div class="average-rating" id="averageRating">⭐ Средний рейтинг: 0.0 (0 оценок)</div>
+          <div class="reviews-list" id="reviewsList"></div>
+          <div class="add-review-form">
+            <h3>Оставить отзыв с оценкой</h3>
+            <form id="starReviewForm">
+              <input type="text" id="reviewName" placeholder="Ваше имя" required style="width:100%; padding:10px; border-radius:28px; margin-bottom:12px;">
+              <textarea id="reviewText" placeholder="Ваш отзыв" rows="2" required style="width:100%; padding:10px; border-radius:28px; margin-bottom:12px;"></textarea>
+              <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+              </div>
+              <button type="submit" class="btn">Добавить отзыв</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="calculator">
+    <div class="container">
+      <h2 class="section-title">Ипотечный калькулятор и правовая оценка</h2>
+      <div class="two-columns">
+        <div class="calc-box">
+          <label>💰 Стоимость жилья (₽)</label>
+          <input type="number" id="homePrice" placeholder="Стоимость недвижимости" value="6000000">
+          <label>🏦 Первоначальный взнос (₽)</label>
+          <input type="number" id="initialPayment" placeholder="Первоначальный взнос" value="1200000">
+          <label>📈 Процентная ставка (% годовых)</label>
+          <input type="number" id="interestRate" placeholder="Годовая ставка" value="12">
+          <label>⏱️ Срок кредита (лет)</label>
+          <input type="number" id="loanTerm" placeholder="Срок в годах" value="20">
+          <button id="calcBtn" class="btn">Рассчитать ежемесячный платёж</button>
+          <div class="calc-result" id="calcResult">Сумма кредита: — ₽<br>Ежемесячный платёж: — ₽</div>
+        </div>
+
+        <div class="legal-check">
+          <h3>📑 Правовая оценка документов</h3>
+          <div class="legal-group">
+            <div class="dropdown-btn" data-dropdown="basis">📄 Документы основания <i class="fas fa-chevron-down"></i></div>
+            <div class="dropdown-content" id="basisGroup">
+              <label><input type="checkbox" value="1"> Договор купли-продажи</label>
+              <label><input type="checkbox" value="2"> Договор дарения</label>
+              <label><input type="checkbox" value="3"> Наследство в силу закона</label>
+              <label><input type="checkbox" value="4"> Наследство по завещанию</label>
+              <label><input type="checkbox" value="5"> Договор о приватизации</label>
+              <label><input type="checkbox" value="6"> Договор долевого участия (ДДУ)</label>
+              <label><input type="checkbox" value="7"> Договор мены</label>
+              <label><input type="checkbox" value="8"> Решение суда</label>
+            </div>
+          </div>
+          <div class="legal-group">
+            <div class="dropdown-btn" data-dropdown="owners">👥 Собственники <i class="fas fa-chevron-down"></i></div>
+            <div class="dropdown-content" id="ownersGroup">
+              <label><input type="checkbox" value="1"> Один собственник</label>
+              <label><input type="checkbox" value="2"> Общая совместная собственность супругов</label>
+              <label><input type="checkbox" value="3"> Долевая собственность</label>
+              <label><input type="checkbox" value="4"> Несовершеннолетние собственники</label>
+              <label><input type="checkbox" value="5"> Собственник старше 65 лет</label>
+              <label><input type="checkbox" value="6"> Юридическое лицо</label>
+            </div>
+          </div>
+          <div class="legal-group">
+            <div class="dropdown-btn" data-dropdown="encumb">⚠️ Обременения и ограничения <i class="fas fa-chevron-down"></i></div>
+            <div class="dropdown-content" id="encumbGroup">
+              <label><input type="checkbox" value="1"> Ипотека в силу закона</label>
+              <label><input type="checkbox" value="2"> Ипотека (кредит)</label>
+              <label><input type="checkbox" value="3"> Исполнительное производство</label>
+              <label><input type="checkbox" value="4"> Запрет на регистрационные действия</label>
+              <label><input type="checkbox" value="5"> Использование гос. сертификатов</label>
+              <label><input type="checkbox" value="6"> Задолженность по коммуналке</label>
+              <label><input type="checkbox" value="7"> Наличие зарегистрированных лиц</label>
+              <label><input type="checkbox" value="8"> Занижение суммы в ДКП</label>
+              <label><input type="checkbox" value="9"> Завышение суммы в ДКП</label>
+              <label><input type="checkbox" value="10"> Сделка по доверенности</label>
+              <label><input type="checkbox" value="11"> Продавец в стадии банкротства</label>
+              <label><input type="checkbox" value="12"> Продавец на учёте в ПНД</label>
+              <label><input type="checkbox" value="13"> Единственное жильё у продавца</label>
+            </div>
+          </div>
+          <div class="legal-group">
+            <div class="dropdown-btn" data-dropdown="term">⏳ Срок владения недвижимостью <i class="fas fa-chevron-down"></i></div>
+            <div class="dropdown-content" id="termGroup">
+              <label><input type="radio" name="term" value="1"> менее 3 лет</label>
+              <label><input type="radio" name="term" value="2"> менее 5 лет</label>
+              <label><input type="radio" name="term" value="3"> более 5 лет</label>
+              <label><input type="radio" name="term" value="4"> более 15 лет</label>
+            </div>
+          </div>
+          <button id="calcRiskBtn" class="btn">Получить результат проверки</button>
+          <div id="riskResult" class="risk-result"></div>
+          <div id="legalFormBlock" class="legal-form">
+            <p><strong>Отправьте запрос на юридическую проверку</strong></p>
+            <input type="text" id="legalName" placeholder="Ваше имя" required>
+            <input type="tel" id="legalPhone" placeholder="Номер телефона" required>
+            <button id="sendLegalRequest" class="btn">Отправить запрос</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts">
+    <div class="container">
+      <h2 class="section-title">Контакты</h2>
+      <div class="contacts-flex">
+        <div class="contact-info">
+          <div class="contact-detail"><i class="fas fa-phone-alt"></i><a href="tel:+79066774072">8 906 677-40-72</a></div>
+          <div class="contact-detail"><i class="fas fa-envelope"></i><a href="mailto:a.soshnikov.slon@gmail.com">a.soshnikov.slon@gmail.com</a></div>
+          <div class="contact-detail"><i class="fab fa-vk"></i><a href="https://vk.ru/id49783590" target="_blank">vk.com/ваш_эксперт</a></div>
+          <div class="contact-detail"><i class="fas fa-link"></i><a href="https://max.ru/u/f9LHodD0cOIukhQOwfUTlSK67579kj-clDpGz4HUV2DiC92NY-T9_StJIls" target="_blank">Профиль MAX.ru</a></div>
+          <div class="social-links">
+            <a href="https://vk.ru/id49783590" class="social-icon" target="_blank"><i class="fab fa-vk"></i></a>
+            <a href="https://max.ru/u/f9LHodD0cOIukhQOwfUTlSK67579kj-clDpGz4HUV2DiC92NY-T9_StJIls" class="social-icon" target="_blank"><i class="fas fa-globe"></i></a>
+          </div>
+        </div>
+        <div class="contact-info">
+          <p><strong>Работаю честно и открыто. Звоните или пишите!</strong></p>
+          <button class="btn" id="footerModalBtn" style="margin-top: 20px;">Отправить обращение</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2025 Сошников Алексей Александрович — эксперт по недвижимости. 6 лет, 100+ сделок. Эмпатийные продажи.</p>
+  </div>
+</footer>
+
+<div id="contactModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h3>Свяжитесь со мной</h3>
+    <form action="https://formsubmit.co/a.soshnikov.slon@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Новое обращение с сайта">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="ФИО" placeholder="ФИО" required>
+      <input type="tel" name="Телефон" placeholder="Номер телефона" required>
+      <select name="Цель обращения" required>
+        <option value="">Выберите цель</option>
+        <option>Продать недвижимость</option>
+        <option>Купить вторичное жильё</option>
+        <option>Купить квартиру в новостройке</option>
+      </select>
+      <textarea name="Комментарий" rows="3" placeholder="Комментарий или текст обращения"></textarea>
+      <button type="submit" class="btn">Отправить</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Калькулятор
+  const calcBtn = document.getElementById('calcBtn');
+  const homePrice = document.getElementById('homePrice');
+  const initialPayment = document.getElementById('initialPayment');
+  const interestRate = document.getElementById('interestRate');
+  const loanTerm = document.getElementById('loanTerm');
+  const calcResult = document.getElementById('calcResult');
+
+  function calculateMortgage() {
+    let price = parseFloat(homePrice.value);
+    let initial = parseFloat(initialPayment.value);
+    let rateYear = parseFloat(interestRate.value);
+    let years = parseFloat(loanTerm.value);
+    if (isNaN(price) || isNaN(initial) || isNaN(rateYear) || isNaN(years) || price <= 0 || years <= 0) {
+      calcResult.innerHTML = 'Сумма кредита: — ₽<br>Ежемесячный платёж: введите корректные данные';
+      return;
+    }
+    if (initial >= price) {
+      calcResult.innerHTML = `Сумма кредита: 0 ₽<br>Ежемесячный платёж: 0 ₽`;
+      return;
+    }
+    let loanAmount = price - initial;
+    let monthlyRate = rateYear / 100 / 12;
+    let months = years * 12;
+    let monthlyPayment;
+    if (monthlyRate === 0) monthlyPayment = loanAmount / months;
+    else monthlyPayment = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, months) / (Math.pow(1 + monthlyRate, months) - 1);
+    if (!isFinite(monthlyPayment)) monthlyPayment = loanAmount / months;
+    calcResult.innerHTML = `Сумма кредита: ${Math.round(loanAmount).toLocaleString()} ₽<br>Ежемесячный платёж: ${Math.round(monthlyPayment).toLocaleString()} ₽`;
+  }
+  calcBtn.addEventListener('click', calculateMortgage);
+  calculateMortgage();
+
+  // Раскрытие текста портфолио
+  document.querySelectorAll('.portfolio-card').forEach(card => {
+    const p = card.querySelector('p');
+    if (p && p.scrollHeight > 80) {
+      card.addEventListener('click', (e) => {
+        e.stopPropagation();
+        p.classList.toggle('expanded');
+      });
+    }
+  });
+
+  // Звёздные отзывы
+  let reviews = JSON.parse(localStorage.getItem('siteReviews')) || [];
+  reviews = reviews.filter(r => !r.name.toLowerCase().includes('николай'));
+  localStorage.setItem('siteReviews', JSON.stringify(reviews));
+
+  function renderReviews() {
+    const container = document.getElementById('reviewsList');
+    if (!container) return;
+    if (reviews.length === 0) {
+      container.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
+      document.getElementById('averageRating').innerHTML = '⭐ Средний рейтинг: 0.0 (0 оценок)';
+      return;
+    }
+    const last5 = [...reviews].reverse().slice(0,5);
+    container.innerHTML = last5.map(r => `
+      <div class="review-item">
+        <div class="review-header">
+          <span class="review-name">${escapeHtml(r.name)}</span>
+          <span class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+        </div>
+        <div class="review-text">${escapeHtml(r.text)}</div>
+      </div>
+    `).join('');
+    let total = reviews.reduce((sum, r) => sum + r.rating, 0);
+    let avg = (total / reviews.length).toFixed(1);
+    document.getElementById('averageRating').innerHTML = `⭐ Средний рейтинг: ${avg} (${reviews.length} ${reviews.length===1?'оценка':'оценок'})`;
+  }
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+  document.getElementById('starReviewForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let name = document.getElementById('reviewName').value.trim();
+    let text = document.getElementById('reviewText').value.trim();
+    let ratingElem = document.querySelector('input[name="rating"]:checked');
+    if (!name || !text || !ratingElem) { alert('Заполните имя, текст отзыва и выберите количество звёзд'); return; }
+    let rating = parseInt(ratingElem.value);
+    reviews.push({ name, text, rating, date: new Date().toISOString() });
+    localStorage.setItem('siteReviews', JSON.stringify(reviews));
+    renderReviews();
+    document.getElementById('reviewName').value = '';
+    document.getElementById('reviewText').value = '';
+    if(ratingElem) ratingElem.checked = false;
+    alert('Спасибо за отзыв!');
+  });
+  renderReviews();
+
+  // Выпадающие списки
+  document.querySelectorAll('.dropdown-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dropdownId = btn.getAttribute('data-dropdown');
+      const content = document.getElementById(dropdownId + 'Group');
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      btn.querySelector('i').style.transform = content.style.display === 'block' ? 'rotate(180deg)' : 'rotate(0deg)';
+    });
+  });
+
+  // Новая логика риска (приоритет High > Medium > Low)
+  function getSelectedValues(containerId) {
+    let checkboxes = document.querySelectorAll(`#${containerId} input[type="checkbox"]:checked`);
+    return Array.from(checkboxes).map(cb => cb.value);
+  }
+  function getSelectedRadio(containerId) {
+    let radio = document.querySelector(`#${containerId} input[type="radio"]:checked`);
+    return radio ? radio.value : null;
+  }
+
+  function evaluateRisk() {
+    const basis = getSelectedValues('basisGroup');
+    const owners = getSelectedValues('ownersGroup');
+    const encumb = getSelectedValues('encumbGroup');
+    const term = getSelectedRadio('termGroup');
+
+    const hasHigh = () => {
+      const highBasis = basis.some(v => ['4','5'].includes(v));
+      const highOwners = owners.some(v => ['4','5'].includes(v));
+      const highEncumb = encumb.some(v => ['1','3','4','7','9','10','11','12'].includes(v));
+      const highTerm = term === '1';
+      return highBasis || highOwners || highEncumb || highTerm;
+    };
+    const hasMedium = () => {
+      const mediumBasis = basis.some(v => ['2','3','8'].includes(v));
+      const mediumOwners = owners.some(v => ['3'].includes(v));
+      const mediumEncumb = encumb.some(v => ['2','5','6','8','13'].includes(v));
+      const mediumTerm = term === '2';
+      return mediumBasis || mediumOwners || mediumEncumb || mediumTerm;
+    };
+    const hasLow = () => {
+      const lowBasis = basis.some(v => ['1','6','7'].includes(v));
+      const lowOwners = owners.some(v => ['1','2'].includes(v));
+      const lowTerm = term && ['3','4'].includes(term);
+      return lowBasis || lowOwners || lowTerm;
+    };
+
+    if (hasHigh()) return 'high';
+    if (hasMedium()) return 'medium';
+    if (hasLow()) return 'low';
+    return null;
+  }
+
+  const calcRiskBtn = document.getElementById('calcRiskBtn');
+  const riskResultDiv = document.getElementById('riskResult');
+  const legalFormBlock = document.getElementById('legalFormBlock');
+
+  calcRiskBtn.addEventListener('click', () => {
+    const risk = evaluateRisk();
+    if (!risk) {
+      riskResultDiv.innerHTML = 'Не выбраны параметры для оценки риска.';
+      riskResultDiv.className = 'risk-result';
+      riskResultDiv.style.display = 'block';
+      legalFormBlock.style.display = 'none';
+      return;
+    }
+    let text = '';
+    let className = '';
+    if (risk === 'low') {
+      text = 'Риск признания сделки недействительной, ничтожной или притворной — <span style="font-weight:800;">МИНИМАЛЬНЫЙ</span>';
+      className = 'risk-low';
+    } else if (risk === 'medium') {
+      text = 'Риск признания сделки недействительной, ничтожной или притворной — <span style="font-weight:800;">СРЕДНИЙ</span>';
+      className = 'risk-medium';
+    } else {
+      text = 'Риск признания сделки недействительной, ничтожной или притворной — <span style="font-weight:800;">ВЫСОКИЙ</span>';
+      className = 'risk-high';
+    }
+    riskResultDiv.innerHTML = text;
+    riskResultDiv.className = `risk-result ${className}`;
+    riskResultDiv.style.display = 'block';
+    legalFormBlock.style.display = 'block';
+  });
+
+  // Отправка запроса
+  document.getElementById('sendLegalRequest')?.addEventListener('click', function() {
+    let name = document.getElementById('legalName').value.trim();
+    let phone = document.getElementById('legalPhone').value.trim();
+    if (!name || !phone) { alert('Введите имя и телефон'); return; }
+    const getSelectedLabels = (containerId) => {
+      let checked = document.querySelectorAll(`#${containerId} input[type="checkbox"]:checked`);
+      return Array.from(checked).map(cb => cb.parentElement.innerText.trim()).join(', ');
+    };
+    const basisText = getSelectedLabels('basisGroup') || 'не выбрано';
+    const ownersText = getSelectedLabels('ownersGroup') || 'не выбрано';
+    const encumbText = getSelectedLabels('encumbGroup') || 'не выбрано';
+    let termText = 'не выбрано';
+    let termRadio = document.querySelector('#termGroup input[type="radio"]:checked');
+    if (termRadio) termText = termRadio.parentElement.innerText.trim();
+    let riskText = riskResultDiv.innerText.includes('МИНИМАЛЬНЫЙ') ? 'МИНИМАЛЬНЫЙ' : (riskResultDiv.innerText.includes('СРЕДНИЙ') ? 'СРЕДНИЙ' : 'ВЫСОКИЙ');
+    let body = `Запрос на юридическую проверку\n\nИмя: ${name}\nТелефон: ${phone}\n\nПараметры:\nДокументы основания: ${basisText}\nСобственники: ${ownersText}\nОбременения: ${encumbText}\nСрок владения: ${termText}\n\nРезультат оценки риска: ${riskText}`;
+    fetch('https://formsubmit.co/ajax/a.soshnikov.slon@gmail.com', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ _subject: 'Юридическая проверка документов', message: body, _captcha: 'false' })
+    }).then(() => {
+      alert('Запрос отправлен! Я свяжусь с вами.');
+      legalFormBlock.style.display = 'none';
+      document.getElementById('legalName').value = '';
+      document.getElementById('legalPhone').value = '';
+    }).catch(() => alert('Ошибка отправки, но данные скопированы. Позвоните мне, пожалуйста.'));
+  });
+
+  // Табы
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.getAttribute('data-tab');
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      tabContents.forEach(content => content.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    });
+  });
+
+  // Модальное окно
+  const modal = document.getElementById('contactModal');
+  const openModalBtns = document.querySelectorAll('#openModalBtn, #heroModalBtn, #footerModalBtn');
+  const closeModal = document.querySelector('.close-modal');
+  openModalBtns.forEach(btn => btn.addEventListener('click', () => modal.style.display = 'flex'));
+  closeModal.addEventListener('click', () => modal.style.display = 'none');
+  window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+      setTimeout(() => { alert('Сообщение отправлено! Я свяжусь с вами.'); }, 100);
+    });
+  });
+</script>
+</body>
+</html>
