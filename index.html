@@ -285,33 +285,42 @@
         </div>
       </div>
       <div id="reviewsTab" class="tab-content">
-        <div class="diplomas-grid">
-          <div class="diploma-card"><img src="от2.png" alt="Диплом"><p></p>Диплом</div>
-          <div class="diploma-card"><img src="от1.png" alt="Сертификат"><p>Сертификат</p></div>
-          <div class="diploma-card"><img src="9.png" alt="Благодарность"><p>Благодарность</p></div>
-          <div class="diploma-card"><img src="33.png" alt="Грамота"><p>Грамота</p></div>
-          <div class="diploma-card"><img src="999.png" alt="Премия"><p>Премия</p></div>
+        <div id="reviewsTab" class="tab-content">
+  <!-- Дипломы и сертификаты (остаются без изменений) -->
+  <div class="diplomas-grid">
+    <div class="diploma-card"><img src="от2.png" alt="Диплом"><p>Диплом</p></div>
+    <div class="diploma-card"><img src="от1.png" alt="Сертификат"><p>Сертификат</p></div>
+    <div class="diploma-card"><img src="9.png" alt="Благодарность"><p>Благодарность</p></div>
+    <div class="diploma-card"><img src="33.png" alt="Грамота"><p>Грамота</p></div>
+    <div class="diploma-card"><img src="999.png" alt="Премия"><p>Премия</p></div>
+  </div>
+
+  <!-- НОВЫЙ БЛОК ДЛЯ ОТЗЫВОВ ИЗ AIRTABLE -->
+  <div class="reviews-stars-area">
+    <div class="average-rating" id="averageRating">⭐ Загружаем рейтинг...</div>
+    
+    <!-- Список отзывов -->
+    <div class="reviews-list" id="reviewsList"></div>
+
+    <!-- Форма для добавления отзыва -->
+    <div class="add-review-form">
+      <h3>Оставить отзыв с оценкой</h3>
+      <form id="starReviewForm">
+        <input type="text" id="reviewName" placeholder="Ваше имя" required style="width:100%; padding:10px; border-radius:28px; margin-bottom:12px;">
+        <textarea id="reviewText" placeholder="Ваш отзыв" rows="2" required style="width:100%; padding:10px; border-radius:28px; margin-bottom:12px;"></textarea>
+        <div class="star-rating">
+          <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+          <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+          <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+          <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+          <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
         </div>
-        <div class="reviews-stars-area">
-          <div class="average-rating" id="averageRating">⭐ Средний рейтинг: 0.0 (0 оценок)</div>
-          <div class="reviews-list" id="reviewsList"></div>
-          <div class="add-review-form">
-            <h3>Оставить отзыв с оценкой</h3>
-            <form id="starReviewForm">
-              <input type="text" id="reviewName" placeholder="Ваше имя" required style="width:100%; padding:10px; border-radius:28px; margin-bottom:12px;">
-              <textarea id="reviewText" placeholder="Ваш отзыв" rows="2" required style="width:100%; padding:10px; border-radius:28px; margin-bottom:12px;"></textarea>
-              <div class="star-rating">
-                <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
-                <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-                <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-                <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-                <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
-              </div>
-              <button type="submit" class="btn">Добавить отзыв</button>
-            </form>
-          </div>
-        </div>
-      </div>
+        <button type="submit" class="btn" id="submitReviewBtn">Добавить отзыв</button>
+        <p id="reviewFormStatus" style="margin-top: 10px;"></p>
+      </form>
+    </div>
+  </div>
+</div>
     </div>
   </section>
 
