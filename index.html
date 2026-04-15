@@ -126,6 +126,89 @@
       .diplomas-grid { gap: 12px; }
       .diploma-card { flex: 1 1 140px; max-width: 150px; } /* на мобильных чуть меньше, но пропорционально */
     }
+    /* ---------- СТИЛИ ДЛЯ МОДАЛЬНОГО ОКНА ---------- */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  margin: 20px;
+  padding: 32px 28px;
+  border-radius: 32px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative;
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.close-modal {
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  font-size: 28px;
+  font-weight: 400;
+  color: #8a9e96;
+  cursor: pointer;
+  transition: color 0.15s;
+  line-height: 1;
+}
+
+.close-modal:hover {
+  color: #1e2a2f;
+}
+
+.modal-content h3 {
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  color: #1f3a30;
+  font-weight: 600;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  border: 1.5px solid #dde5e0;
+  border-radius: 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  background-color: #fbfdfc;
+  transition: border-color 0.2s;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+  outline: none;
+  border-color: #2b6e4f;
+  background-color: #ffffff;
+}
+
+.modal-content .btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px 20px;
+  font-size: 1.05rem;
+}
   </style>
 </head>
 <body>
