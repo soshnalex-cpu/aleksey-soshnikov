@@ -688,5 +688,165 @@
     });
   });
 </script>
+  <script>
+  (function() {
+    'use strict';
+
+    // ========== ВАЖНО! ЗАМЕНИТЕ ЭТИ ЗНАЧЕНИЯ НА ВАШИ ==========
+    const AIRTABLE_TOKEN = 'ВАШ_ТОКЕН';
+    const AIRTABLE_BASE_ID = 'ВАШ_BASE_ID';
+    const AIRTABLE_TABLE_NAME = 'Reviews'; // Название вашей таблицы
+    // =========================================================
+
+    // Проверка, что вы вставили свои ключи
+    if (AIRTABLE_TOKEN === 'pat3ApAJWYFl1VLFy.30225dd40401b414f513f51b86d8a3b937973dde8c68e2a6cc640fc698719506' || AIRTABLE_BASE_ID === 'appluQD0N9sSkH5Ew/tblmZQXvRBw3w6aZ6/viwLxy6yqoDRYN17B?blocks=hide') {
+      document.getElementById('reviewsList').innerHTML = '<p style="color: red;">Ошибка: Замените AIRTABLE_TOKEN и AIRTABLE_BASE_ID в коде на ваши реальные значения из Шага 2.</p>';
+      document.getElementById('averageRating').innerHTML = '⭐ Ошибка конфигурации';
+      throw new Error('Airtable keys not set');
+    }
+
+    const reviewsListDiv = document.getElementById('reviewsList');
+    const averageRatingDiv = document.getElementById('averageRating');
+    const form = document.getElementById('starReviewForm');
+    const submitBtn = document.getElementById('submitReviewBtn');
+    const statusP = document.getElementById('reviewFormStatus');
+
+    // Функция для загрузки и отображения отзывов
+    async function loadAndDisplayReviews() {
+      try {
+        // Запрашиваем только одобренные отзывы (Status = 'Approved') и сортируем по дате создания (новые сверху)
+        const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}?filterByFormula={Status}="Approved"&sort[0][field]=Created&sort[0][direction]=desc&maxRecords=10`;
+        const response = await fetch(url, {
+          headers: { 'Authorization': `Bearer ${AIRTABLE_TOKEN}` }
+        });
+
+        if (!response.ok) {
+          throw new Error(`Ошибка загрузки: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const records = data.records;
+
+        if (records.length === 0) {
+          reviewsListDiv.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
+          averageRatingDiv.innerHTML = '⭐ Средний рейтинг: 0.0 (0 оценок)';
+          return;
+        }
+
+        let totalRating = 0;
+        let html = '';
+        records.forEach(record => {
+          const fields = record.fields;
+          const name = fields.Name || 'Аноним';
+          const review = fields.Review || '';
+          const rating = fields.Rating || 0;
+          totalRating += rating;
+
+          // Генерируем звёздочки для отзыва
+          const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+
+          html += `
+            <div class="review-item">
+              <div class="review-header">
+                <span class="review-name">${escapeHtml(name)}</span>
+                <span class="review-stars">${stars}</span>
+              </div>
+              <div class="review-text">${escapeHtml(review)}</div>
+            </div>
+          `;
+        });
+
+        const avgRating = (totalRating / records.length).toFixed(1);
+        averageRatingDiv.innerHTML = `⭐ Средний рейтинг: ${avgRating} (${records.length} ${getNumEnding(records.length, 'оценка', 'оценки', 'оценок')})`;
+        reviewsListDiv.innerHTML = html;
+      } catch (error) {
+        console.error('Ошибка при загрузке отзывов:', error);
+        reviewsListDiv.innerHTML = '<p style="color: #721c24;">Не удалось загрузить отзывы. Попробуйте обновить страницу позже.</p>';
+        averageRatingDiv.innerHTML = '⭐ Рейтинг временно недоступен';
+      }
+    }
+
+    // Функция для отправки отзыва
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reviewName').value.trim();
+      const text = document.getElementById('reviewText').value.trim();
+      const ratingElem = document.querySelector('input[name="rating"]:checked');
+
+      if (!name || !text || !ratingElem) {
+        statusP.textContent = 'Пожалуйста, заполните все поля и поставьте оценку.';
+        statusP.style.color = '#856404';
+        return;
+      }
+
+      const rating = parseInt(ratingElem.value);
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Отправка...';
+      statusP.textContent = 'Отправляем ваш отзыв...';
+      statusP.style.color = '#2b6e4f';
+
+      try {
+        const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}`;
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            records: [{
+              fields: {
+                Name: name,
+                Review: text,
+                Rating: rating,
+                Status: 'Pending' // Отзыв будет ждать модерации
+              }
+            }]
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`Ошибка отправки: ${response.status}`);
+        }
+
+        // Очищаем форму
+        document.getElementById('reviewName').value = '';
+        document.getElementById('reviewText').value = '';
+        document.querySelector('input[name="rating"]:checked').checked = false;
+        statusP.textContent = 'Спасибо! Ваш отзыв отправлен и появится после проверки.';
+        statusP.style.color = '#2b6e4f';
+      } catch (error) {
+        console.error('Ошибка при отправке отзыва:', error);
+        statusP.textContent = 'Произошла ошибка. Попробуйте позже.';
+        statusP.style.color = '#721c24';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Добавить отзыв';
+      }
+    });
+
+    // Вспомогательные функции
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function getNumEnding(n, one, two, five) {
+      n = Math.abs(n) % 100;
+      if (n >= 5 && n <= 20) return five;
+      n %= 10;
+      if (n === 1) return one;
+      if (n >= 2 && n <= 4) return two;
+      return five;
+    }
+
+    // Загружаем отзывы при открытии страницы
+    loadAndDisplayReviews();
+
+    // Если вы в будущем захотите добавить кнопку "Обновить отзывы", можете вызвать эту функцию
+    window.refreshReviews = loadAndDisplayReviews;
+  })();
+</script>
 </body>
 </html>
